@@ -27,8 +27,9 @@ def authenticate_user(db: Session, email: str, password: str) -> Optional[models
     return None
 
 
-def create_hourly_rate(db: Session, user_id: int, rate: float) -> models.HourlyRate:
-    rate = models.HourlyRate(user_id=user_id, rate=rate)
+def create_hourly_rate(db: Session, user_id: int, rate: float, effective_from: datetime) -> models.HourlyRate:
+    rate = models.HourlyRate(user_id=user_id, rate=rate,
+                             effective_from=effective_from,)
     db.add(rate)
     db.commit()
     db.refresh(rate)

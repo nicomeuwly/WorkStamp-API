@@ -1,3 +1,4 @@
+import pytz
 from sqlalchemy import Column, String, DateTime, Numeric, ForeignKey, Boolean
 from sqlalchemy.dialects.sqlite import BLOB
 from sqlalchemy.orm import relationship, Mapped, mapped_column
@@ -37,7 +38,7 @@ class HourlyRate(Base):
     rate: Mapped[float] = mapped_column(Numeric(10, 2), nullable=False)
     effective_from: Mapped[datetime] = mapped_column(DateTime, nullable=False)
     created_at: Mapped[datetime] = mapped_column(
-        DateTime, default=datetime.utcnow)
+        DateTime, default=datetime.now(pytz.timezone("Europe/Paris")))
 
     user = relationship("User", back_populates="hourly_rates")
 
@@ -52,8 +53,8 @@ class TimeEntry(Base):
     start_time: Mapped[datetime] = mapped_column(DateTime, nullable=False)
     end_time: Mapped[datetime] = mapped_column(DateTime, nullable=True)
     created_at: Mapped[datetime] = mapped_column(
-        DateTime, default=datetime.utcnow)
+        DateTime, default=datetime.now(pytz.timezone("Europe/Paris")))
     updated_at: Mapped[datetime] = mapped_column(
-        DateTime, default=datetime.utcnow)
+        DateTime, default=datetime.now(pytz.timezone("Europe/Paris")))
 
     user = relationship("User", back_populates="time_entries")

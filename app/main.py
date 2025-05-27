@@ -11,7 +11,7 @@ def custom_openapi():
     if app.openapi_schema:
         return app.openapi_schema
     openapi_schema = get_openapi(
-        title="WorkSalary API",
+        title="WorkStamp API",
         version="1.0.0",
         description="API personnelle pour gérer le temps de travail et le salaire",
         routes=app.routes,

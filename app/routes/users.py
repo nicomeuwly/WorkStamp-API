@@ -31,7 +31,7 @@ def add_hourly_rate(
     db: Session = Depends(get_db),
     current_user: models.User = Depends(get_current_user)
 ):
-    return crud.create_hourly_rate(db, current_user.id, rate.rate)
+    return crud.create_hourly_rate(db, current_user.id, rate.rate, rate.effective_from)
 
 
 @router.get("/hourly-rate", response_model=list[schemas.HourlyRateOut])
