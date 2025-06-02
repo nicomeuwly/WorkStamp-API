@@ -1,6 +1,7 @@
+from typing import Optional
 from uuid import UUID
 from pydantic import BaseModel, EmailStr, Field
-from datetime import datetime
+from datetime import datetime, date
 import pytz
 
 
@@ -17,7 +18,7 @@ class UserOut(BaseModel):
     created_at: datetime
 
     class Config:
-        orm_mode = True
+        model_config = {"from_attributes": True}
 
 
 class LoginRequest(BaseModel):
@@ -42,7 +43,40 @@ class HourlyRateOut(BaseModel):
     id: UUID
     rate: float
     effective_from: datetime
+
+    class Config:
+        from_attributes = True
+
+
+class TimeEntryCreate(BaseModel):
+    start_time: datetime
+    end_time: Optional[datetime] = None
+
+
+class TimeEntryUpdate(BaseModel):
+    start_time: Optional[datetime] = None
+    end_time: Optional[datetime] = None
+
+
+class TimeEntryOut(BaseModel):
+    id: UUID
+    start_time: datetime
+    end_time: Optional[datetime] = None
     created_at: datetime
 
     class Config:
         from_attributes = True
+
+
+class WorkedDaySummary(BaseModel):
+    date: date
+    total_hours: float
+    entry_count: int
+
+
+class MonthlySummary(BaseModel):
+    month: str 
+    total_days: int
+    total_hours: float
+    hourly_rate: float
+    salary: float

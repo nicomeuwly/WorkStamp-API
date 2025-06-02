@@ -20,7 +20,7 @@ class User(Base):
     email: Mapped[str] = mapped_column(String, unique=True, nullable=False)
     password_hash: Mapped[str] = mapped_column(String, nullable=False)
     created_at: Mapped[datetime] = mapped_column(
-        DateTime, default=datetime.utcnow)
+        DateTime, default=datetime.now(pytz.timezone("Europe/Paris")))
 
     hourly_rates = relationship(
         "HourlyRate", back_populates="user", cascade="all, delete")

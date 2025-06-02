@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from .database import engine
 from . import models
-from .routes import users, auth
+from .routes import users, auth, time_entries
 from fastapi.openapi.utils import get_openapi
 
 app = FastAPI()
@@ -37,6 +37,7 @@ models.Base.metadata.create_all(bind=engine)
 
 app.include_router(users.router)
 app.include_router(auth.router)
+app.include_router(time_entries.router)
 
 
 @app.get("/")
